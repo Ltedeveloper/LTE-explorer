@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lte.dao.mapper.TrxVoutMapper" >
+  <resultMap id="BaseResultMap" type="com.lte.dao.entity.TrxVout" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="block_num" property="blockNum" jdbcType="BIGINT" />
+    <result column="trx_id" property="trxId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="vout" property="vout" jdbcType="INTEGER" />
+    <result column="is_use" property="isUse" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, block_num, trx_id, address, amount, vout, is_use, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tx_vout
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tx_vout
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lte.dao.entity.TrxVout" >
+    insert into tx_vout (id, block_num, trx_id,
+      address, amount, vout, 
+      is_use, create_time)
+    values (#{id,jdbcType=INTEGER}, #{blockNum,jdbcType=BIGINT}, #{trxId,jdbcType=VARCHAR},
+      #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{vout,jdbcType=INTEGER}, 
+      #{isUse,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into tx_vout (id, block_num, trx_id,
+    address, amount, vout,
+    is_use, create_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.blockNum,jdbcType=BIGINT}, #{item.trxId,jdbcType=VARCHAR},
+      #{item.address,jdbcType=VARCHAR}, #{item.amount,jdbcType=DECIMAL}, #{item.vout,jdbcType=INTEGER},
+      #{item.isUse,jdbcType=INTEGER}, #{item.createTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.lte.dao.entity.TrxVout" >
+    insert into tx_vout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="blockNum != null" >
+        block_num,
+      </if>
+      <if test="trxId != null" >
+        trx_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="vout != null" >
+        vout,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="blockNum != null" >
+        #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="vout != null" >
+        #{vout,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lte.dao.entity.TrxVout" >
+    update tx_vout
+    <set >
+      <if test="blockNum != null" >
+        block_num = #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        trx_id = #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="vout != null" >
+        vout = #{vout,jdbcType=INTEGER},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lte.dao.entity.TrxVout" >
+    update tx_vout
+    set block_num = #{blockNum,jdbcType=BIGINT},
+      trx_id = #{trxId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      vout = #{vout,jdbcType=INTEGER},
+      is_use = #{isUse,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByTrxId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tx_vout
+    where trx_id = #{trxId,jdbcType=VARCHAR}
+  </select>
+
+  <update id="TrxVoutMapper" parameterType="com.lte.dao.entity.TrxVout" >
+    update tx_vout
+    set is_use = #{isUse,jdbcType=INTEGER}
+    where 1=1
+    <if test="trxId != null" >
+      trx_id = #{trxId,jdbcType=VARCHAR},
+    </if>
+    <if test="vout != null" >
+      vout = #{vout,jdbcType=INTEGER},
+    </if>
+  </update>
+
+  <select id="selectOneByCondition" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.TrxVout" >
+    select
+    <include refid="Base_Column_List" />
+    from tx_vout
+    where 1=1
+    <if test="blockNum != null" >
+      and block_num = #{blockNum,jdbcType=BIGINT}
+    </if>
+    <if test="trxId != null" >
+      and trx_id = #{trxId,jdbcType=VARCHAR}
+    </if>
+    <if test="address != null" >
+      and address = #{address,jdbcType=VARCHAR}
+    </if>
+    <if test="amount != null" >
+      and amount = #{amount,jdbcType=DECIMAL}
+    </if>
+    <if test="vout != null" >
+      and vout = #{vout,jdbcType=INTEGER}
+    </if>
+    <if test="isUse != null" >
+      and is_use = #{isUse,jdbcType=INTEGER}
+    </if>
+    limit 0,1
+  </select>
+
+  <!--<select id="calcBalance" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.TrxVout" >
+    select address,ifnull(sum(amount),0) as amount
+    from trx_vout
+    where is_use=0 and block_num>0 and
+    address in
+    <foreach collection="addressList" index="index" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+    group by address
+  </select>-->
+
+  <select id="calcBalance" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.TrxVout" >
+    select address,ifnull(sum(case when is_use=0
+                    then amount
+                    else 0
+                    end),0) as amount
+    from tx_vout
+    where block_num>0 and
+    address in
+    <foreach collection="addressList" index="index" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+    group by address
+  </select>
+
+  <select id="calcBalanceList" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.TrxVout" >
+    select  <include refid="Base_Column_List" />
+    from tx_vout
+    where
+    address in
+    <foreach collection="addressList" index="index" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+     and block_num>0
+  </select>
+
+  <select id="selectTrxIdByAddress" resultType="java.lang.String" parameterType="java.lang.String" >
+    select trx_id
+    from tx_vout
+    where address = #{address,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getNewBanlance" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select address,ifnull(sum(amount),0) as amount
+    from tx_vout
+    where address = #{address,jdbcType=VARCHAR} and is_use=0
+  </select>
+
+</mapper>

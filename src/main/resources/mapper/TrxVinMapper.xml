@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lte.dao.mapper.TrxVinMapper" >
+  <resultMap id="BaseResultMap" type="com.lte.dao.entity.TrxVin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="block_num" property="blockNum" jdbcType="BIGINT" />
+    <result column="trx_id" property="trxId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="source_trx_id" property="sourceTrxId" jdbcType="VARCHAR" />
+    <result column="vout" property="vout" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, block_num, trx_id, address, amount, source_trx_id, vout, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from trx_vin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from trx_vin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lte.dao.entity.TrxVin" >
+    insert into trx_vin (id, block_num, trx_id, 
+      address, amount, source_trx_id, 
+      vout, create_time)
+    values (#{id,jdbcType=INTEGER}, #{blockNum,jdbcType=BIGINT}, #{trxId,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{sourceTrxId,jdbcType=VARCHAR}, 
+      #{vout,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into trx_vin (id, block_num, trx_id,
+    address, amount, source_trx_id,
+    vout, create_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.blockNum,jdbcType=BIGINT}, #{item.trxId,jdbcType=VARCHAR},
+      #{item.address,jdbcType=VARCHAR}, #{item.amount,jdbcType=DECIMAL}, #{item.sourceTrxId,jdbcType=VARCHAR},
+      #{item.vout,jdbcType=INTEGER}, #{item.createTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.lte.dao.entity.TrxVin" >
+    insert into trx_vin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="blockNum != null" >
+        block_num,
+      </if>
+      <if test="trxId != null" >
+        trx_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="sourceTrxId != null" >
+        source_trx_id,
+      </if>
+      <if test="vout != null" >
+        vout,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="blockNum != null" >
+        #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceTrxId != null" >
+        #{sourceTrxId,jdbcType=VARCHAR},
+      </if>
+      <if test="vout != null" >
+        #{vout,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lte.dao.entity.TrxVin" >
+    update trx_vin
+    <set >
+      <if test="blockNum != null" >
+        block_num = #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        trx_id = #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="sourceTrxId != null" >
+        source_trx_id = #{sourceTrxId,jdbcType=VARCHAR},
+      </if>
+      <if test="vout != null" >
+        vout = #{vout,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lte.dao.entity.TrxVin" >
+    update trx_vin
+    set block_num = #{blockNum,jdbcType=BIGINT},
+      trx_id = #{trxId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      source_trx_id = #{sourceTrxId,jdbcType=VARCHAR},
+      vout = #{vout,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectListByTrxId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from trx_vin
+    where trx_id = #{trxId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectOneByCondition" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.TrxVin" >
+    select
+    <include refid="Base_Column_List" />
+    from trx_vin
+    where 1=1
+    <if test="blockNum != null" >
+      and block_num = #{blockNum,jdbcType=BIGINT}
+    </if>
+    <if test="trxId != null" >
+      and trx_id = #{trxId,jdbcType=VARCHAR}
+    </if>
+    <if test="address != null" >
+      and address = #{address,jdbcType=VARCHAR}
+    </if>
+    <if test="amount != null" >
+      and amount = #{amount,jdbcType=DECIMAL}
+    </if>
+    <if test="vout != null" >
+      and vout = #{vout,jdbcType=INTEGER}
+    </if>
+    limit 0,1
+  </select>
+
+  <select id="selectTrxIdByAddress" resultType="java.lang.String" parameterType="java.lang.String" >
+    select trx_id
+    from trx_vin
+    where address = #{address,jdbcType=VARCHAR}
+  </select>
+</mapper>

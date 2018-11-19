@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lte.dao.mapper.CalcAddressBalanceMapper" >
+  <resultMap id="BaseResultMap" type="com.lte.dao.entity.CalcAddressBalance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, address
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from calc_address_balance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from calc_address_balance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lte.dao.entity.CalcAddressBalance" >
+    insert into calc_address_balance (id, address)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into calc_address_balance (id, address)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.address,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.lte.dao.entity.CalcAddressBalance" >
+    insert into calc_address_balance
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lte.dao.entity.CalcAddressBalance" >
+    update calc_address_balance
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lte.dao.entity.CalcAddressBalance" >
+    update calc_address_balance
+    set address = #{address,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectBatch" resultMap="BaseResultMap" parameterType="com.lte.dao.entity.CalcAddressBalance" >
+    select
+    <include refid="Base_Column_List" />
+    from calc_address_balance
+    order by id
+    limit #{limit,jdbcType=INTEGER}
+  </select>
+
+  <select id="deleteBatch" parameterType="com.lte.dao.entity.CalcAddressBalance">
+    delete from calc_address_balance
+    where id in
+    <foreach collection="idList" index="index" open="(" separator="," close=")" item="id">
+      #{id}
+    </foreach>
+  </select>
+</mapper>

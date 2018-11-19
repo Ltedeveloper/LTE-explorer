@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lte.dao.mapper.BlockTrxAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.lte.dao.entity.BlockTrxAddress" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="block_num" property="blockNum" jdbcType="BIGINT" />
+    <result column="trx_id" property="trxId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="address_type" property="addressType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, block_num, trx_id, address, amount, address_type, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from block_trx_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from block_trx_address
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lte.dao.entity.BlockTrxAddress" >
+    insert into block_trx_address (id, block_num, trx_id, 
+      address, amount, address_type, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{blockNum,jdbcType=BIGINT}, #{trxId,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{addressType,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into block_trx_address (id, block_num, trx_id,
+    address, amount, address_type,
+    create_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.id,jdbcType=INTEGER}, #{item.blockNum,jdbcType=BIGINT}, #{item.trxId,jdbcType=VARCHAR},
+      #{item.address,jdbcType=VARCHAR}, #{item.amount,jdbcType=DECIMAL}, #{item.addressType,jdbcType=INTEGER},
+      #{item.createTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.lte.dao.entity.BlockTrxAddress" >
+    insert into block_trx_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="blockNum != null" >
+        block_num,
+      </if>
+      <if test="trxId != null" >
+        trx_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="addressType != null" >
+        address_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="blockNum != null" >
+        #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="addressType != null" >
+        #{addressType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lte.dao.entity.BlockTrxAddress" >
+    update block_trx_address
+    <set >
+      <if test="blockNum != null" >
+        block_num = #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="trxId != null" >
+        trx_id = #{trxId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="addressType != null" >
+        address_type = #{addressType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lte.dao.entity.BlockTrxAddress" >
+    update block_trx_address
+    set block_num = #{blockNum,jdbcType=BIGINT},
+      trx_id = #{trxId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      address_type = #{addressType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectVinList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select address,sum(amount) as amount
+    from block_trx_address
+    where trx_id = #{trxId,jdbcType=VARCHAR} AND address_type=1
+    group by address
+  </select>
+
+  <select id="selectVoutList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select address,sum(amount) as amount
+    from block_trx_address
+    where trx_id = #{trxId,jdbcType=VARCHAR} AND address_type=2
+    group by address
+  </select>
+</mapper>

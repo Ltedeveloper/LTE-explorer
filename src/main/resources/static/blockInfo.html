@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>LTE区块浏览器</title>
+    <meta name="viewport" content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 ,user-scalable = no"/>
+    <link rel="apple-touch-icon" href="../images/favicon.ico?v=6e6597dd25fadfbb7f7295c01d185b62"/>
+    <link rel="stylesheet" href="../css/bootstrap.css?v=de2dbb7479c943c2838eb5ffe6417731"/>
+    <link rel="stylesheet" href="../css/base.css?v=1b7920de422d02681bd892a9d51d2065"/>
+    <script src="../js/jquery.min.js?v=0e74ec44c373afa81d7274de777b40d1"></script>
+    <script src="../js/bootstrap.min.js?v=abda843684d022f3bc22bc83927fe05f"></script>
+    <link rel="shortcut icon" href="../images/favicon.png" />
+</head>
+<body>
+<div class="navbar navbar-inverse">
+    <div class="logo"><div class="logo-img"><a href="/">
+        <img src="../images/logo.png?v=221a8648fb8f299f92e295e987b4c5eb" /></a></div>
+    </div>
+</div>
+<div class="container logo-box hidden-xs">
+    <div class="search-box">
+
+        <form role="search" action="/searchs" method="GET">
+            <button class="search-btn" type="submit"><div class="button-y"><img src="../images/fdj.png?v=9297dc0ed99e1c28e848ae1244e51373" /></div></button>
+            <input name="search" id="search" placeholder="区块高度、交易ID、地址" class="form-control search" />
+        </form>
+    </div>
+</div>
+<div class="container main ">
+    <div class="row">
+
+        <div class="all" id="all">
+            <div class="all-title-box">
+            </div>
+            <div id="block_info" class="tx-info mb22 tx-bgimg-ltc"></div>
+            <div class="clearfix"></div>
+            <div id="block_tx"></div>
+            <div class="clearfix mb100"></div>
+        </div>
+        <div id="block_num" class="hidden" th:text="${blockNum}"></div>
+    </div>
+</div>
+<div class="container footer">
+    <!--<div class="foot">© 2017 <span>区块</span> All rights reserved &nbsp;&nbsp; 京ICP备14039424号 &nbsp;&nbsp; 京公网安备11010802016184号 </div>-->
+</div>
+
+<script src="../js/l10n.min.js?v=f10cf419af2d1e2094f5b58e09253cee"></script>
+
+<script src="../js/base.js?v=cc3769cfc41f7d2863a47f55a645b560"></script>
+<script src="../js/block2.js?v=e149fb50047c263ea31962ad223053b2"></script>
+
+
+</body>
+</html>

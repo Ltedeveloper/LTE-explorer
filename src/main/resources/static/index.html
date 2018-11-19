@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>LTE区块浏览器</title>
+    <meta name="viewport"
+          content="width=320, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0 ,user-scalable = no"/>
+    <link rel="shortcut icon" href="images/favicon.ico?v=6e6597dd25fadfbb7f7295c01d185b62"/>
+    <link rel="apple-touch-icon" href="images/favicon.ico?v=6e6597dd25fadfbb7f7295c01d185b62"/>
+    <link rel="stylesheet" href="css/bootstrap.css?v=de2dbb7479c943c2838eb5ffe6417731"/>
+    <link rel="stylesheet" href="css/base.css?v=1b7920de422d02681bd892a9d51d2065"/>
+    <script src="js/jquery.min.js?v=0e74ec44c373afa81d7274de777b40d1"></script>
+    <script src="js/bootstrap.min.js?v=abda843684d022f3bc22bc83927fe05f"></script>
+
+    <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+<body>
+<!-- Static navbar -->
+<div class="navbar navbar-inverse">
+    <div class="logo">
+        <div class="logo-img">
+            <a href="/">
+                <img src="images/logo.png?v=221a8648fb8f299f92e295e987b4c5eb"/></a>
+        <!--<span style="color:#FFFFFF;font-size: 20px;">区块浏览器</span>-->
+        </div>
+    </div>
+</div>
+<div class="container logo-box hidden-xs">
+    <div class="search-box">
+
+        <form role="search" action="/searchs" method="GET">
+            <button class="search-btn" type="submit">
+                <div class="button-y"><img src="images/fdj.png?v=9297dc0ed99e1c28e848ae1244e51373"/></div>
+            </button>
+            <input name="search" id="search" placeholder="区块高度、交易ID、地址" class="form-control search"/>
+        </form>
+    </div>
+</div>
+<div class="container main ">
+    <div class="row">
+
+        <div class="left">
+            <div class="column-box">
+                <div class="column">最新区块</div>
+            </div>
+            <div class="table-responsive">
+                <table class="table" id="blk_tb">
+                </table>
+            </div>
+            <div class="clearfix"></div>
+            <div class="index-line"></div>
+            <div class="column-box">
+                <div class="column">最新交易</div>
+            </div>
+            <div class="tx-box">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="tab-tx">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="data">实时数据</div>
+            <div id="data">
+            </div>
+            <div class="title-box">
+                <div class="title-word">最新块高</div>
+                <div class="data-l" id="blocks" style="padding: 4px 7px"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="title-box">
+                <div class="title-word">全网算力</div>
+                <div class="data-l" style="padding: 4px 7px" id="networkhashps"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="title-box">
+                <div class="title-word">全网难度</div>
+                <div class="data-l" id="difficulty" style="padding: 4px 7px"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="title-box">
+                <div class="title-word">未确认交易数量</div>
+                <div class="data-l" id="pooledtx" style="padding: 4px 7px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container footer">
+    <!-- <div class="foot">© 2017 <span>区块</span> All rights reserved &nbsp;&nbsp; 京ICP备14039424号 &nbsp;&nbsp; 京公网安备11010802016184号 </div>-->
+</div>
+
+<script src="js/l10n.min.js?v=f10cf419af2d1e2094f5b58e09253cee"></script>
+<script src="js/base.js?v=cc3769cfc41f7d2863a47f55a645b560"></script>
+<script src="js/index.js?v=1d8f82578dbe1896008ef36e919e00cf"></script>
+
+
+</body>
+</html>

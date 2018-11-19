@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lte.dao.mapper.BlockInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lte.dao.entity.BlockInfo" >
+    <id column="block_num" property="blockNum" jdbcType="BIGINT" />
+    <result column="hash" property="hash" jdbcType="VARCHAR" />
+    <result column="block_size" property="blockSize" jdbcType="VARCHAR" />
+    <result column="previous_block_hash" property="previousBlockHash" jdbcType="VARCHAR" />
+    <result column="next_block_hash" property="nextBlockHash" jdbcType="VARCHAR" />
+    <result column="nonce" property="nonce" jdbcType="VARCHAR" />
+    <result column="signee" property="signee" jdbcType="VARCHAR" />
+    <result column="difficulty" property="difficulty" jdbcType="VARCHAR" />
+    <result column="block_time" property="blockTime" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="trx_num" property="trxNum" jdbcType="INTEGER" />
+    <result column="reward" property="reward" jdbcType="DECIMAL" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    block_num, hash, block_size, previous_block_hash, next_block_hash, nonce, signee,
+    difficulty, block_time, amount, trx_num, reward, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from block_info
+    where block_num = #{blockNum,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from block_info
+    where block_num = #{blockNum,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lte.dao.entity.BlockInfo" >
+    insert into block_info (block_num, hash, block_size,
+    previous_block_hash, next_block_hash, nonce,
+    signee, difficulty, block_time,
+    amount, trx_num, reward,
+    create_time)
+    values (#{blockNum,jdbcType=BIGINT}, #{hash,jdbcType=VARCHAR}, #{blockSize,jdbcType=VARCHAR},
+    #{previousBlockHash,jdbcType=VARCHAR}, #{nextBlockHash,jdbcType=VARCHAR}, #{nonce,jdbcType=VARCHAR},
+    #{signee,jdbcType=VARCHAR}, #{difficulty,jdbcType=VARCHAR}, #{blockTime,jdbcType=VARCHAR},
+    #{amount,jdbcType=DECIMAL}, #{trxNum,jdbcType=INTEGER}, #{reward,jdbcType=DECIMAL},
+    #{createTime,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into block_info (block_num, hash, block_size,
+    previous_block_hash, next_block_hash, nonce,
+    signee, difficulty, block_time,
+    amount, trx_num, reward,
+    create_time)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (#{item.blockNum,jdbcType=BIGINT}, #{item.hash,jdbcType=VARCHAR}, #{item.blockSize,jdbcType=VARCHAR},
+      #{item.previousBlockHash,jdbcType=VARCHAR}, #{item.nextBlockHash,jdbcType=VARCHAR}, #{item.nonce,jdbcType=VARCHAR},
+      #{item.signee,jdbcType=VARCHAR}, #{item.difficulty,jdbcType=VARCHAR}, #{item.blockTime,jdbcType=VARCHAR},
+      #{item.amount,jdbcType=DECIMAL}, #{item.trxNum,jdbcType=INTEGER}, #{item.reward,jdbcType=DECIMAL},
+      #{item.createTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.lte.dao.entity.BlockInfo" >
+    insert into block_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blockNum != null" >
+        block_num,
+      </if>
+      <if test="hash != null" >
+        hash,
+      </if>
+      <if test="blockSize != null" >
+        block_size,
+      </if>
+      <if test="previousBlockHash != null" >
+        previous_block_hash,
+      </if>
+      <if test="nextBlockHash != null" >
+        next_block_hash,
+      </if>
+      <if test="nonce != null" >
+        nonce,
+      </if>
+      <if test="signee != null" >
+        signee,
+      </if>
+      <if test="difficulty != null" >
+        difficulty,
+      </if>
+      <if test="blockTime != null" >
+        block_time,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="trxNum != null" >
+        trx_num,
+      </if>
+      <if test="reward != null" >
+        reward,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blockNum != null" >
+        #{blockNum,jdbcType=BIGINT},
+      </if>
+      <if test="hash != null" >
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockSize != null" >
+        #{blockSize,jdbcType=VARCHAR},
+      </if>
+      <if test="previousBlockHash != null" >
+        #{previousBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nextBlockHash != null" >
+        #{nextBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nonce != null" >
+        #{nonce,jdbcType=VARCHAR},
+      </if>
+      <if test="signee != null" >
+        #{signee,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="blockTime != null" >
+        #{blockTime,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="trxNum != null" >
+        #{trxNum,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null" >
+        #{reward,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lte.dao.entity.BlockInfo" >
+    update block_info
+    <set >
+      <if test="hash != null" >
+        hash = #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="blockSize != null" >
+        block_size = #{blockSize,jdbcType=VARCHAR},
+      </if>
+      <if test="previousBlockHash != null" >
+        previous_block_hash = #{previousBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nextBlockHash != null" >
+        next_block_hash = #{nextBlockHash,jdbcType=VARCHAR},
+      </if>
+      <if test="nonce != null" >
+        nonce = #{nonce,jdbcType=VARCHAR},
+      </if>
+      <if test="signee != null" >
+        signee = #{signee,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null" >
+        difficulty = #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="blockTime != null" >
+        block_time = #{blockTime,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="trxNum != null" >
+        trx_num = #{trxNum,jdbcType=INTEGER},
+      </if>
+      <if test="reward != null" >
+        reward = #{reward,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where block_num = #{blockNum,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lte.dao.entity.BlockInfo" >
+    update block_info
+    set hash = #{hash,jdbcType=VARCHAR},
+    block_size = #{blockSize,jdbcType=VARCHAR},
+    previous_block_hash = #{previousBlockHash,jdbcType=VARCHAR},
+    next_block_hash = #{nextBlockHash,jdbcType=VARCHAR},
+    nonce = #{nonce,jdbcType=VARCHAR},
+    signee = #{signee,jdbcType=VARCHAR},
+    difficulty = #{difficulty,jdbcType=VARCHAR},
+    block_time = #{blockTime,jdbcType=VARCHAR},
+    amount = #{amount,jdbcType=DECIMAL},
+    trx_num = #{trxNum,jdbcType=INTEGER},
+    reward = #{reward,jdbcType=DECIMAL},
+    create_time = #{createTime,jdbcType=VARCHAR}
+    where block_num = #{blockNum,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryMaxBlockNum" resultType="java.lang.Long">
+    select MAX(block_num)
+    from block_info
+  </select>
+
+  <select id="getNewBlockList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from block_info
+    order by block_num DESC
+    limit 0,6
+  </select>
+
+</mapper>
